@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JIS Janta Party (JJP) — Voice of the Backlog & Ignored</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;600;700;900&family=IBM+Plex+Mono:wght@400;500;600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #EFE7D8;
+    --paper-2: #E6DCC7;
+    --ink: #1B2A4A;
+    --ink-soft: #33456b;
+    --stamp: #B23A2E;
+    --chalk: #2F4B3C;
+    --gold: #C9A227;
+    --text: #201C14;
+    --line: rgba(27,42,74,0.18);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:
+      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(201,162,39,0.10), transparent),
+      var(--paper);
+    color:var(--text);
+    font-family:'Work Sans', sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(27,42,74,0.025) 0px, rgba(27,42,74,0.025) 1px, transparent 1px, transparent 3px);
+    pointer-events:none;
+    z-index:0;
+  }
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 28px; position:relative; z-index:1;}
+  h1,h2,h3{font-family:'Bitter', serif; letter-spacing:-0.01em;}
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--stamp);
+    font-weight:600;
+  }
+  .torn{
+    height:14px;
+    width:100%;
+    background:
+      linear-gradient(135deg, var(--paper) 25%, transparent 25%) 0 0/14px 14px,
+      linear-gradient(225deg, var(--paper) 25%, transparent 25%) 0 0/14px 14px;
+    background-color: var(--paper-2);
+  }
+
+  /* ===== NAV ===== */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(239,231,216,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  nav.wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    padding-top:14px; padding-bottom:14px;
+  }
+  .brand{display:flex; align-items:center; gap:10px;}
+  .brand-name{
+    font-family:'Bitter', serif;
+    font-weight:700;
+    font-size:17px;
+    line-height:1.15;
+    color:var(--ink);
+  }
+  .brand-name small{
+    display:block;
+    font-family:'IBM Plex Mono', monospace;
+    font-weight:500;
+    font-size:10.5px;
+    letter-spacing:0.08em;
+    color:var(--ink-soft);
+    text-transform:uppercase;
+  }
+  .navlinks{display:flex; gap:26px; font-size:14px; font-weight:500;}
+  .navlinks a{color:var(--ink-soft); border-bottom:1px solid transparent; padding-bottom:2px; transition:.15s;}
+  .navlinks a:hover{color:var(--stamp); border-color:var(--stamp);}
+  .btn{
+    display:inline-block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    font-weight:600;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    padding:10px 18px;
+    border-radius:2px;
+    background:var(--stamp);
+    color:#F7F1E4;
+    border:1px solid var(--stamp);
+    cursor:pointer;
+    transition:.15s;
+  }
+  .btn:hover{background:#8f2c22; border-color:#8f2c22;}
+  .btn.ghost{background:transparent; color:var(--ink); border:1.5px solid var(--ink);}
+  .btn.ghost:hover{background:var(--ink); color:var(--paper);}
+  .navlinks-mobile{display:none;}
+  @media (max-width:860px){
+    .navlinks{display:none;}
+    header .btn.ghost{display:none;}
+  }
+
+  /* ===== HERO ===== */
+  .hero{padding:76px 0 60px; position:relative; overflow:hidden;}
+  .hero-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:56px; align-items:center;}
+  @media (max-width:860px){ .hero-grid{grid-template-columns:1fr;} }
+  .hero-tag{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--chalk);
+    border:1px solid var(--chalk);
+    padding:6px 12px;
+    border-radius:100px;
+    margin-bottom:22px;
+  }
+  .hero-tag::before{content:"●"; color:var(--stamp); font-size:8px;}
+  h1.hero-title{
+    font-size:clamp(38px, 5.4vw, 64px);
+    font-weight:900;
+    line-height:1.02;
+    color:var(--ink);
+  }
+  h1.hero-title em{
+    font-style:normal;
+    color:var(--stamp);
+    position:relative;
+  }
+  .hero-sub{
+    margin-top:22px;
+    font-size:18px;
+    max-width:46ch;
+    color:#3a3326;
+  }
+  .hero-cta{display:flex; gap:14px; margin-top:32px; flex-wrap:wrap;}
+  .stat-row{
+    display:flex; gap:0; margin-top:48px;
+    border-top:1px solid var(--line);
+    padding-top:22px;
+    flex-wrap:wrap;
+  }
+  .stat{padding-right:34px; margin-right:34px; border-right:1px solid var(--line);}
+  .stat:last-child{border-right:none;}
+  .stat b{
+    display:block; font-family:'Bitter', serif; font-size:26px; color:var(--ink); font-weight:700;
+  }
+  .stat span{font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.04em;}
+
+  /* ===== LOGO / STAMP ===== */
+  .stamp-wrap{
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+  }
+  .stamp-wrap svg{
+    width:100%; max-width:360px;
+    filter:drop-shadow(0 14px 26px rgba(27,42,74,0.18));
+  }
+  .stamp-caption{
+    text-align:center;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    margin-top:14px;
+  }
+
+  /* ===== SECTIONS shared ===== */
+  section{padding:84px 0;}
+  .section-head{max-width:640px; margin-bottom:48px;}
+  .section-head h2{font-size:clamp(28px,3.4vw,40px); color:var(--ink); margin-top:10px; font-weight:700; line-height:1.1;}
+  .section-head p{margin-top:14px; font-size:16.5px; color:#3a3326;}
+
+  /* VISION */
+  .vision-grid{display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:start;}
+  @media (max-width:860px){ .vision-grid{grid-template-columns:1fr;} }
+  .vision-card{
+    background:var(--paper-2);
+    border:1px solid var(--line);
+    padding:30px;
+    border-radius:3px;
+    position:relative;
+  }
+  .vision-card::before{
+    content:"";
+    position:absolute; top:14px; right:14px;
+    width:34px; height:34px;
+    border:2px solid var(--stamp);
+    border-radius:50%;
+    opacity:0.35;
+  }
+  .vision-card h3{font-size:19px; color:var(--ink); margin-bottom:10px;}
+  .vision-card p{color:#3a3326; font-size:15.5px;}
+
+  /* MANIFESTO — exam paper style */
+  .paper-sheet{
+    background:#F7F2E5;
+    border:1px solid var(--line);
+    box-shadow:0 1px 0 var(--line), 0 24px 40px -30px rgba(27,42,74,0.35);
+    border-radius:2px;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    padding:26px 32px; border-bottom:2px solid var(--ink);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .paper-head .big{font-family:'Bitter', serif; font-size:15px; color:var(--ink); text-transform:none; letter-spacing:0;}
+  .qlist{padding:8px 0;}
+  .qitem{
+    display:grid; grid-template-columns:64px 1fr; gap:18px;
+    padding:26px 32px;
+    border-bottom:1px dashed var(--line);
+  }
+  .qitem:last-child{border-bottom:none;}
+  .qnum{
+    font-family:'IBM Plex Mono', monospace;
+    font-weight:600; font-size:13px; color:var(--stamp);
+    padding-top:2px;
+  }
+  .qitem p{font-size:16px; color:var(--text);}
+  .qitem p b{color:var(--ink); font-weight:700;}
+  .marks{
+    display:inline-block; margin-top:8px;
+    font-family:'IBM Plex Mono', monospace; font-size:10.5px;
+    color:var(--chalk); border:1px solid var(--chalk); padding:2px 8px; border-radius:100px;
+    letter-spacing:0.05em; text-transform:uppercase;
+  }
+
+  /* ELIGIBILITY */
+  .elig-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:3px; overflow:hidden;}
+  @media (max-width:700px){ .elig-grid{grid-template-columns:1fr;} }
+  .elig-item{background:var(--paper); padding:26px 28px;}
+  .elig-item .req{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--stamp); letter-spacing:0.08em; text-transform:uppercase;
+  }
+  .elig-item h4{font-family:'Bitter', serif; font-size:19px; margin:8px 0 6px; color:var(--ink);}
+  .elig-item p{font-size:14.5px; color:#4a4433;}
+  .elig-note{
+    margin-top:24px; font-size:14px; color:var(--ink-soft);
+    border-left:3px solid var(--gold); padding-left:16px;
+  }
+
+  /* CONTACT */
+  .contact-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:56px;}
+  @media (max-width:860px){ .contact-grid{grid-template-columns:1fr;} }
+  .contact-list{margin-top:26px;}
+  .contact-row{display:flex; justify-content:space-between; padding:16px 0; border-bottom:1px solid var(--line); font-size:15px;}
+  .contact-row span:first-child{font-family:'IBM Plex Mono', monospace; font-size:11.5px; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink-soft);}
+  .founder-card{
+    background:var(--ink); color:var(--paper);
+    padding:32px; border-radius:4px;
+  }
+  .founder-card .eyebrow{color:var(--gold);}
+  .founder-card h3{font-size:24px; margin-top:8px; font-family:'Bitter', serif;}
+  .founder-card p{margin-top:10px; font-size:14.5px; color:#cfd6e6;}
+  .founder-seal{
+    width:52px; height:52px; border-radius:50%; border:2px solid var(--gold);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Bitter', serif; font-weight:700; font-size:13px; color:var(--gold);
+    margin-bottom:18px;
+  }
+
+  /* FOOTER */
+  footer{
+    border-top:1px solid var(--line);
+    padding:48px 0 30px;
+    font-size:13px;
+    color:var(--ink-soft);
+  }
+  .foot-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:40px; margin-bottom:40px;}
+  @media (max-width:700px){ .foot-grid{grid-template-columns:1fr; gap:28px;} }
+  .foot-grid h5{font-family:'IBM Plex Mono', monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:var(--ink); margin-bottom:14px;}
+  .foot-grid a{display:block; margin-bottom:9px; color:var(--ink-soft);}
+  .foot-grid a:hover{color:var(--stamp);}
+  .foot-bottom{
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;
+    padding-top:22px; border-top:1px solid var(--line);
+  }
+  .satire-flag{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--stamp); font-weight:600;
+  }
+  .disclaimer{
+    max-width:1120px; margin:0 auto 40px; padding:0 28px;
+  }
+  .disclaimer-box{
+    border:1px dashed var(--stamp);
+    background:rgba(178,58,46,0.05);
+    padding:16px 20px;
+    font-size:13px;
+    color:#6b2c22;
+    border-radius:3px;
+    font-family:'IBM Plex Mono', monospace;
+    line-height:1.6;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="brand">
+      <svg width="38" height="38" viewBox="0 0 100 100" aria-hidden="true">
+        <circle cx="50" cy="50" r="47" fill="none" stroke="#1B2A4A" stroke-width="3"/>
+        <circle cx="50" cy="50" r="40" fill="none" stroke="#C9A227" stroke-width="1.5"/>
+        <text x="50" y="58" text-anchor="middle" font-family="Bitter, serif" font-weight="900" font-size="26" fill="#1B2A4A">JJP</text>
+      </svg>
+      <div class="brand-name">JIS Janta Party<small>Est. 2026 · JJP</small></div>
+    </div>
+    <div class="navlinks">
+      <a href="#vision">Vision</a>
+      <a href="#manifesto">Manifesto</a>
+      <a href="#join">Eligibility</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a href="https://forms.gle/EVMmQaRGPunvBtH58" class="btn">Join the Party</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="hero-tag">Party Launch · Live since 23 July 2026</div>
+      <h1 class="hero-title">Voice of the<br><em>Backlog</em> & Ignored.</h1>
+      <p class="hero-sub">A student party for everyone across JIS Group institutes who's ever refreshed the results portal at 2am. Five demands. Zero faculty sponsors. One very persistent WhatsApp group.</p>
+      <div class="hero-cta">
+        <a href="#manifesto" class="btn">Read the Manifesto</a>
+        <a href="#join" class="btn ghost">Check Eligibility</a>
+      </div>
+      <div class="stat-row">
+        <div class="stat"><b>5</b><span>Demands</span></div>
+        <div class="stat"><b>0</b><span>Faculty Sponsors</span></div>
+        <div class="stat"><b>39</b><span>Institutes Covered</span></div>
+        <div class="stat"><b>12K+</b><span>Members & Counting</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="stamp-wrap">
+        <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <path id="topArc" d="M 40,150 A 110,110 0 0 1 260,150" fill="none"/>
+            <path id="botArc" d="M 55,195 A 100,100 0 0 0 245,195" fill="none"/>
+          </defs>
+          <circle cx="150" cy="150" r="140" fill="#F7F2E5" stroke="#1B2A4A" stroke-width="2"/>
+          <circle cx="150" cy="150" r="122" fill="none" stroke="#1B2A4A" stroke-width="2.5"/>
+          <circle cx="150" cy="150" r="112" fill="none" stroke="#C9A227" stroke-width="1.2"/>
+          <text font-family="IBM Plex Mono, monospace" font-size="11.5" font-weight="600" letter-spacing="3" fill="#1B2A4A">
+            <textPath href="#topArc" startOffset="50%" text-anchor="middle">JIS JANTA PARTY</textPath>
+          </text>
+          <text font-family="IBM Plex Mono, monospace" font-size="11" font-weight="600" letter-spacing="2" fill="#1B2A4A">
+            <textPath href="#botArc" startOffset="50%" text-anchor="middle">EST. 2026 · KOLKATA</textPath>
+          </text>
+          <!-- mortarboard mascot -->
+          <g transform="translate(150,128)">
+            <polygon points="0,-16 46,0 0,16 -46,0" fill="#1B2A4A"/>
+            <rect x="-14" y="0" width="28" height="16" rx="1" fill="#1B2A4A"/>
+            <line x1="30" y1="2" x2="30" y2="26" stroke="#B23A2E" stroke-width="2.5"/>
+            <circle cx="30" cy="28" r="3.5" fill="#B23A2E"/>
+          </g>
+          <text x="150" y="205" text-anchor="middle" font-family="Bitter, serif" font-weight="900" font-size="40" fill="#1B2A4A">JJP</text>
+          <text x="150" y="222" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" letter-spacing="2" fill="#B23A2E">VOICE OF THE BACKLOG</text>
+        </svg>
+      </div>
+      <div class="stamp-caption">Official Seal — JIS Janta Party</div>
+    </div>
+  </div>
+</section>
+
+<div class="torn"></div>
+
+<section id="vision">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Chapter One</div>
+      <h2>Our Movement's Vision.</h2>
+      <p>We're not here to redesign the prospectus PDF or add another motivational quote to the noticeboard. We're here to ask, in writing, on record — where did our internal marks go, and why does the placement brochure only ever mention one number.</p>
+    </div>
+    <div class="vision-grid">
+      <div class="vision-card">
+        <h3>Why we exist</h3>
+        <p>Build a party for every student who's been told to "focus on studies" while the syllabus, the seating chart, and the semester calendar all changed without notice. That's the whole mission. The rest is satire.</p>
+      </div>
+      <div class="vision-card">
+        <h3>What we're not</h3>
+        <p>Not a rival to the Student Council. Not funded by a coaching institute. Not interested in your CGPA. Just a very loud, very organized group of students asking for paperwork to match promises.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="manifesto" style="background:var(--paper-2);">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">The Five Demands</div>
+      <h2>The Manifesto.</h2>
+      <p>Filed like an exam paper, because that's the only format the system seems to follow.</p>
+    </div>
+    <div class="paper-sheet">
+      <div class="paper-head">
+        <div class="big">JJP / Charter of Demands</div>
+        <div>Total Marks: 5 · Time: Indefinite</div>
+      </div>
+      <div class="qlist">
+        <div class="qitem">
+          <div class="qnum">Q.01</div>
+          <div>
+            <p>If JJP forms the student council, every internal assessment answer script shall be <b>optional to the students to attend, according to their mood</b> — not just on request, by default.</p>
+            <span class="marks">Non-negotiable</span>
+          </div>
+        </div>
+        <div class="qitem">
+          <div class="qnum">Q.02</div>
+          <div>
+            <p>The Placement Cell shall publish the <b>unemployment rate alongside the placed student list</b> on every brochure, poster, and Instagram post.</p>
+            <span class="marks">Full disclosure</span>
+          </div>
+        </div>
+        <div class="qitem">
+          <div class="qnum">Q.03</div>
+          <div>
+            <p>Any revaluation request shall be resolved within <b>15 working days</b>, not "next semester, maybe."</p>
+            <span class="marks">Time-bound</span>
+          </div>
+        </div>
+        <div class="qitem">
+          <div class="qnum">Q.04</div>
+          <div>
+            <p>Hostel and mess fee hikes require a <b>student council vote</b> before implementation — a WhatsApp broadcast is not consent.</p>
+            <span class="marks">Consent required</span>
+          </div>
+        </div>
+        <div class="qitem">
+          <div class="qnum">Q.05</div>
+          <div>
+            <p>Class timetables and faculty allocations shall be <b>published according to students' choice</b> not by college authority, for every batch.</p>
+            <span class="marks">Predictability</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="join">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Membership</div>
+      <h2>Are you eligible to join?</h2>
+      <p>We don't check your branch, your batch, or your attendance percentage. We do have four standards.</p>
+    </div>
+    <div class="elig-grid">
+      <div class="elig-item">
+        <div class="req">REQ / 01</div>
+        <h4>Currently Enrolled</h4>
+        <p>Any UG, PG, diploma, or PhD student across any JIS Group institute. Alumni welcome as advisors.</p>
+      </div>
+      <div class="elig-item">
+        <div class="req">REQ / 02</div>
+        <h4>Backlog Haver (optional)</h4>
+        <p>Having a backlog is fully respected here, never required, and never held against you.</p>
+      </div>
+      <div class="elig-item">
+        <div class="req">REQ / 03</div>
+        <h4>Canteen Regular</h4>
+        <p>Working knowledge of the canteen menu and its ever-changing prices strongly preferred.</p>
+      </div>
+      <div class="elig-item">
+        <div class="req">REQ / 04</div>
+        <h4>Hostel Wi-Fi Survivor</h4>
+        <p>Must have personally experienced the hostel Wi-Fi buffering during a live viva at least once.</p>
+      </div>
+    </div>
+    <p class="elig-note">Membership is free, campus-wide, and revocable only by you. No fees. No forwarding this to 10 groups.</p>
+  </div>
+</section>
+
+<section id="contact" style="background:var(--paper-2);">
+  <div class="wrap contact-grid">
+    <div>
+      <div class="eyebrow">Get in touch</div>
+      <h2 style="font-size:32px; color:var(--ink); margin-top:10px;">Connect with us.</h2>
+      <p style="margin-top:12px; color:#3a3326; font-size:15.5px;">Want to join, volunteer, or flag an issue on your campus? We read everything that comes through.</p>
+      <div class="contact-list">
+        <div class="contact-row"><span>Email</span><span>contact@jisjantaparty.xyz</span></div>
+        <div class="contact-row"><span>Headquarters</span><span>Wherever the syllabus PDF loads</span></div>
+        <div class="contact-row"><span>Coverage</span><span>All JIS Group institutes, Kolkata & West Bengal</span></div>
+        <div class="contact-row"><span>Status</span><span>Unregistered · Satirical</span></div>
+      </div>
+    </div>
+    <div class="founder-card">
+      <div class="founder-seal">JJP</div>
+      <div class="eyebrow">Founder & Convenor</div>
+      <h3>Akash Gupta</h3>
+      <p>Started JJP as a demo project imagining what student-led accountability could look like across JIS Group's campuses — built in the spirit of satire, not sanctioned by any institute.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h5>JIS Janta Party</h5>
+        <p style="max-width:32ch; color:var(--ink-soft);">A student movement for the backlogged, the ignored, and the chronically stuck refreshing the results portal. Headquartered wherever the syllabus PDF loads.</p>
+      </div>
+      <div>
+        <h5>The Party</h5>
+        <a href="#vision">Vision</a>
+        <a href="#manifesto">Manifesto</a>
+        <a href="#join">Eligibility</a>
+      </div>
+      <div>
+        <h5>Get Involved</h5>
+        <a href="#join">Join the Party</a>
+        <a href="#contact">Contact Founder</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 JIS Janta Party · All rants reserved.</span>
+      <span class="satire-flag">A work of satire</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
